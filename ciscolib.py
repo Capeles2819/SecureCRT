@@ -349,7 +349,7 @@ def GetAbsolutePath(session, base_path, filename, create=True):
     return os.path.normpath(os.path.join(exp_path, filename))
 
 
-def GetFilename(session, settings, desc):
+def GetFilename(session, settings, desc, save_path=None):
     '''
     This function takes information from the settings and generates the 
     filename that can be passed to other functions to read/write files.  
@@ -359,7 +359,10 @@ def GetFilename(session, settings, desc):
     '''
     # Extract path and format information from our tuple
     crt = session['crt']
-    save_path = settings['savepath']
+    
+    # If a base path wasn't supplied, use the one from settings
+    if not save_path:
+        save_path = settings['savepath']
     date_format = settings['date_format']
 
     # If environment vars were used, expand them
